@@ -2,7 +2,7 @@ import React from 'react';
 
 const ListBooks = props => {
     return (
-        <div className="list-books">
+        <div>
             <div className="list-books-title">
                 <h1>MyReads</h1>
             </div>
@@ -157,11 +157,7 @@ const ListBooks = props => {
                     </div>
                 </div>
             </div>
-            <div className="open-search">
-                <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
         </div>
-
     );
 }
 export default ListBooks;
