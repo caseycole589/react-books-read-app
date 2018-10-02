@@ -2,7 +2,7 @@ import React from 'react';
 import Book from './Book'
 const BookShelf = props => {
     const { shelfFitler, title, books, onUpdateBook } = props;
-    const filteredBooks = books.filter(book => book.shelf === shelfFitler);
+    const filteredBooks = books && books.length > 0 ? books.filter(book => book.shelf === shelfFitler || shelfFitler === 'all') : [];
     return (
         <div className="bookshelf">
             <h2 className="bookshelf-title">{title}</h2>
