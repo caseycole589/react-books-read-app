@@ -13,10 +13,18 @@ const Book = props => {
                     <div className="book-shelf-changer">
                         <select value={book.shelf} onChange={handleSelect}>
                             <option value="move" disabled>Move to...</option>
-                            <option value="currentlyReading">Currently Reading</option>
-                            <option value="wantToRead">Want to Read</option>
-                            <option value="read">Read</option>
-                            <option value="none">None</option>
+                            {book.shelf === "currentlyReading"
+                                ? <option value="currentlyReading"> ✔ Currently Reading</option>
+                                : <option value="currentlyReading">Currently Reading</option>}
+                            {book.shelf === "wantToRead"
+                                ? <option value="wantToRead"> ✔ Want to Read</option>
+                                : <option value="wantToRead">Currently Reading</option>}
+                            {book.shelf === "read"
+                                ? <option value="read"> ✔ Read</option>
+                                : <option value="read">Read</option>}
+                            {book.shelf === "none"
+                                ? <option value="None"> ✔ None </option>
+                                : <option value="None">None </option>}
                         </select>
                     </div>
                 </div>

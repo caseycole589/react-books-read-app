@@ -5,12 +5,12 @@ import BookShelf from './BookShelf'
 class SearchBooks extends React.Component {
     state = {
         searchInput: "",
-        foundBooks: []
+        foundBooks: [],
     }
     clearSearchInput = () => {
         this.setState({
             searchInput: "",
-            foundBooks: []
+            foundBooks: [],
         })
     }
     querySearch = e => {
@@ -21,9 +21,27 @@ class SearchBooks extends React.Component {
     }
     fetchData = val => {
         search(val).then(resp => {
-            this.setState({
-                foundBooks: resp
-            })
+            if (!resp || resp.error) {
+                this.mergeBooks([]);
+            } else {
+                this.mergeBooks(resp)
+            }
+        })
+    }
+    mergeBooks = foundBooks => {
+        for (let found of foundBooks) {
+            for (const book of this.props.books) {
+                if (book.id === found.id) {
+                    found.shelf = book.shelf;
+                    break;
+                }
+            }
+            if (!found.shelf) {
+                found.shelf = 'none';
+            }
+        }
+        this.setState({
+            foundBooks: foundBooks
         })
     }
     render() {
@@ -33,14 +51,6 @@ class SearchBooks extends React.Component {
                 <div className="search-books-bar">
                     <Link to="/" className="close-search">Close</Link>
                     <div className="search-books-input-wrapper">
-                        {/*
-          NOTES: The search from BooksAPI is limited to a particular set of search terms.
-          You can find these search terms here:
-          https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-          However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-          you don't find a specific author or title. Every search is limited by search terms.
-        */}
                         <input onChange={this.querySearch} type="text" placeholder="Search by title or author" />
                     </div>
                 </div>
